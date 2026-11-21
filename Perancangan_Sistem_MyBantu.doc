@@ -1,0 +1,824 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>Dokumen Perancangan Sistem - MyBantu</title>
+<!--[if gte mso 9]>
+<xml>
+<w:WordDocument>
+<w:View>Print</w:View>
+<w:Zoom>100</w:Zoom>
+<w:DoNotOptimizeForBrowser/>
+</w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+@page Section1 {
+    size: 21.0cm 29.7cm; /* A4 */
+    margin: 2.5cm 2.5cm 2.5cm 2.5cm;
+    mso-header-margin: 36.0pt;
+    mso-footer-margin: 36.0pt;
+    mso-paper-source: 0;
+}
+div.Section1 {
+    page: Section1;
+}
+body {
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1e293b;
+    background-color: #ffffff;
+}
+h1 {
+    font-size: 18pt;
+    color: #1e3a8a;
+    border-bottom: 2pt solid #1e3a8a;
+    padding-bottom: 5pt;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    page-break-after: avoid;
+}
+h2 {
+    font-size: 14pt;
+    color: #1e40af;
+    border-bottom: 1pt solid #cbd5e1;
+    padding-bottom: 4pt;
+    margin-top: 18pt;
+    margin-bottom: 8pt;
+    page-break-after: avoid;
+}
+h3 {
+    font-size: 12pt;
+    color: #0f172a;
+    margin-top: 14pt;
+    margin-bottom: 6pt;
+    page-break-after: avoid;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 8pt;
+    text-align: justify;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 8pt;
+    margin-bottom: 14pt;
+    font-size: 9.5pt;
+}
+th {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: left;
+    padding: 7pt 9pt;
+    border: 1pt solid #1e3a8a;
+}
+td {
+    padding: 6pt 9pt;
+    border: 1pt solid #cbd5e1;
+    vertical-align: top;
+}
+tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+.box-note {
+    background-color: #eff6ff;
+    border-left: 4pt solid #3b82f6;
+    padding: 9pt 12pt;
+    margin-top: 8pt;
+    margin-bottom: 12pt;
+    font-size: 9.5pt;
+}
+.code-block {
+    background-color: #f1f5f9;
+    border: 1pt solid #cbd5e1;
+    padding: 9pt 12pt;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 9pt;
+    line-height: 1.4;
+    color: #0f172a;
+    margin-top: 6pt;
+    margin-bottom: 12pt;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.diagram-visual {
+    background-color: #f8fafc;
+    border: 1.5pt solid #3b82f6;
+    padding: 10pt 12pt;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.35;
+    color: #1e3a8a;
+    white-space: pre;
+    margin-top: 6pt;
+    margin-bottom: 12pt;
+    overflow-x: auto;
+}
+.cover {
+    text-align: center;
+    padding: 35pt 15pt;
+    border-bottom: 3pt double #1e3a8a;
+    margin-bottom: 25pt;
+}
+.cover-title {
+    font-size: 22pt;
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-bottom: 6pt;
+}
+.cover-subtitle {
+    font-size: 13pt;
+    color: #475569;
+    margin-bottom: 15pt;
+}
+.cover-meta {
+    font-size: 9.5pt;
+    color: #64748b;
+    line-height: 1.6;
+}
+.badge {
+    display: inline-block;
+    padding: 2pt 5pt;
+    font-size: 8.5pt;
+    font-weight: bold;
+    background-color: #e2e8f0;
+    color: #0f172a;
+    border-radius: 3pt;
+}
+</style>
+</head>
+<body>
+<div class="Section1">
+
+<div class="cover">
+    <div class="cover-title">DOKUMEN PERANCANGAN SISTEM INFORMASI (UML)</div>
+    <div class="cover-subtitle">Use Case Diagram, Activity Diagram, dan Sequence Diagram<br>Platform Layanan Pemesanan Asisten Rumah Tangga (MyBantu)</div>
+    <div class="cover-meta">
+        <strong>Aplikasi:</strong> MyBantu Marketplace Jasa ART & Tenaga Kebersihan<br>
+        <strong>Arsitektur:</strong> Laravel MVC Framework (Multi-Authentication Guards: Web, Worker, Admin)<br>
+        <strong>Standar Notasi:</strong> Unified Modeling Language (UML 2.5)<br>
+        <strong>Tanggal Penyusunan:</strong> November 2026
+    </div>
+</div>
+
+<h1>BAB I. PENDAHULUAN & IDENTIFIKASI AKTOR SISTEM</h1>
+
+<p>Dokumen ini menyajikan perancangan fungsional dan struktural sistem informasi <strong>MyBantu</strong> berbasis <em>Unified Modeling Language</em> (UML). Perancangan mencakup Use Case Diagram, Activity Diagram, dan Sequence Diagram yang disusun berdasarkan kode sumber aplikasi Laravel pada berkas rute (<code>routes/web.php</code>), pengontrol (<em>Controllers</em>), serta skema basis data relasional (<em>Migrations & Models</em>).</p>
+
+<h2>1.1 Identifikasi Aktor Sistem (Role Actor Analysis)</h2>
+<p>Sistem informasi MyBantu memiliki 4 (empat) aktor yang berinteraksi dengan hak akses yang terisolasi melalui autentikasi multi-guard:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 20%;">Aktor Sistem</th>
+            <th style="width: 15%;">Guard / Modul</th>
+            <th style="width: 60%;">Deskripsi Hak Akses & Peran Operasional</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td><strong>Pengunjung (Guest)</strong></td>
+            <td>Publik (Unauthenticated)</td>
+            <td>Pengguna yang belum login ke sistem. Dapat menjelajahi landing page, melihat katalog ART (product index), filter wilayah provinsi/kabupaten, melihat profil publik ART, ulasan publik, membaca halaman Tentang Kami, mengirim form kontak, dan melakukan pendaftaran.</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><strong>Majikan (User)</strong></td>
+            <td><code>auth:web</code></td>
+            <td>Pengguna terdaftar pencari jasa ART. Dapat mengelola profil majikan, memesan jasa ART (harian/mingguan), memilih jadwal kerja, mengonfirmasi pembayaran tagihan ke rekening bersama (escrow), membatalkan pesanan, memantau status pengerjaan, dan memberikan rating serta ulasan setelah transaksi selesai.</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><strong>Mitra ART (Worker)</strong></td>
+            <td><code>auth:worker</code></td>
+            <td>Penyedia jasa terdaftar. Dapat mengelola profil, foto, berkas SKCK, serta mengatur tarif harian/mingguan. Menerima notifikasi pesanan masuk, mengonfirmasi (Terima / Tolak), memperbarui status pekerjaan (Mulai Kerja, Selesai), mengajukan pencairan dana ke rekening bank, dan memantau riwayat pendapatan.</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td><strong>Administrator (Admin)</strong></td>
+            <td><code>auth:admin</code></td>
+            <td>Pengelola platform MyBantu. Dapat memverifikasi berkas pendaftaran mitra (SKCK dan kelengkapan data), mengubah status keaktifan mitra (AKTIF / NONAKTIF), mengelola data majikan, melihat analitik performa (Worker & Majikan Terbaik), memantau transaksi, fee platform 15%, dan mengelola akun admin lain.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box-note">
+    <strong>Karakteristik Keuangan & Escrow Platform:</strong> Pada sistem MyBantu, pembayaran dari majikan ditampung sementara di rekening bersama (escrow MyBantu) dengan status <code>Sudah Bayar</code>. Setelah mitra menyelesaikan pekerjaan (<code>Selesai</code>) dan mengajukan pencairan dana, sistem secara otomatis memotong fee platform sebesar <strong>15%</strong> dan menyalurkan <strong>85%</strong> dana bersih langsung ke rekening bank tujuan mitra ART.
+</div>
+
+<h1>BAB II. USE CASE DIAGRAM & SPESIFIKASI KEBUTUHAN</h1>
+
+<h2>2.1 Diagram Use Case Keseluruhan</h2>
+<p>Diagram di bawah ini menggambarkan interaksi antara keempat aktor terhadap modul-modul fungsional di dalam Sistem Informasi MyBantu:</p>
+
+<div class="diagram-visual">
++---------------------------------------------------------------------------------------------------------+
+|                                      SISTEM INFORMASI MYBANTU                                           |
+|                                                                                                         |
+|  [PENGUNJUNG]                 [MAJIKAN (USER)]                [MITRA ART (WORKER)]       [ADMINISTRATOR]|
+|       |                              |                                |                         |       |
+|       +-- UC-01: Eksplorasi Katalog  +-- UC-07: Kelola Profil Majikan +-- UC-13: Kelola Profil  +-- UC-18: Verifikasi |
+|       +-- UC-02: Filter Wilayah      +-- UC-08: Booking Jasa ART      +-- UC-14: Atur Tarif      +-- UC-19: Kelola Mitra|
+|       +-- UC-03: Lihat Profil ART    +-- UC-09: Pembayaran Escrow     +-- UC-15: Konfirmasi Order+-- UC-20: Kelola User |
+|       +-- UC-04: Kirim Pesan Kontak  +-- UC-10: Batalkan Pesanan      +-- UC-16: Update Status   +-- UC-21: Top Worker  |
+|       +-- UC-05: Register Majikan    +-- UC-11: Beri Rating & Review  +-- UC-17: Pencairan Dana  +-- UC-22: Fee Platform|
+|       +-- UC-06: Register Mitra ART  +-- UC-12: Pantau Transaksi            (Payout 85%)         +-- UC-23: Kelola Admin|
+|                                                                                                         |
+|  RELASI INCLUDE & EXTEND:                                                                               |
+|  * UC-08 (Booking Jasa ART)    ------<<include>>------> UC-Login                                        |
+|  * UC-09 (Pembayaran Escrow)   ------<<extend>>-------> UC-08 (Booking Jasa ART)                        |
+|  * UC-11 (Beri Rating & Review)------<<extend>>-------> UC-12 (Pantau Transaksi)                        |
+|  * UC-17 (Pencairan Dana)      ------<<include>>------> UC-16 (Update Status Selesai)                   |
++---------------------------------------------------------------------------------------------------------+
+</div>
+
+<h3>Kode Sumber Notasi Mermaid (Use Case Diagram):</h3>
+<div class="code-block">
+flowchart LR
+    Guest(["Pengunjung / Guest"])
+    User(["Majikan / User"])
+    Worker(["Mitra ART / Worker"])
+    Admin(["Administrator"])
+
+    subgraph System ["Sistem Informasi MyBantu"]
+        UC_Browse(["Eksplorasi Katalog Mitra ART"])
+        UC_Filter(["Filter Berdasarkan Wilayah & Cari"])
+        UC_ViewDetail(["Lihat Detail & Ulasan Mitra ART"])
+        UC_Contact(["Kirim Pesan Kontak / Bantuan"])
+        UC_RegUser(["Registrasi Akun Majikan"])
+        UC_RegWorker(["Pendaftaran Mitra ART Baru"])
+        UC_Login(["Login Multi-Guard"])
+        
+        UC_ProfileUser(["Kelola Profil Majikan"])
+        UC_Order(["Pemesanan Jasa ART"])
+        UC_Pay(["Proses & Konfirmasi Pembayaran (Escrow)"])
+        UC_Cancel(["Batalkan Pesanan"])
+        UC_Rating(["Beri Rating & Ulasan Layanan"])
+        UC_HistUser(["Lihat Riwayat & Status Pesanan"])
+
+        UC_ProfileWorker(["Kelola Profil & Tarif Layanan"])
+        UC_ConfirmOrder(["Konfirmasi Pesanan (Iya / Tolak)"])
+        UC_UpdateStatus(["Update Status Kerja (Mulai / Selesai)"])
+        UC_Payout(["Pencairan Saldo ke Rekening Bank"])
+        UC_Income(["Lihat Ringkasan Pendapatan & Escrow"])
+
+        UC_VerifyWorker(["Verifikasi Berkas Mitra (SKCK & KTP)"])
+        UC_ManageWorker(["Kelola Data & Keaktifan Mitra ART"])
+        UC_ManageUser(["Kelola Data Majikan"])
+        UC_BestAnalytics(["Lihat Peringkat Worker & Majikan Terbaik"])
+        UC_ManageAdmin(["Kelola Akun Administrator"])
+    end
+
+    Guest --> UC_Browse
+    Guest --> UC_Filter
+    Guest --> UC_ViewDetail
+    Guest --> UC_Contact
+    Guest --> UC_RegUser
+    Guest --> UC_RegWorker
+    Guest --> UC_Login
+
+    User --> UC_Login
+    User --> UC_ProfileUser
+    User --> UC_Browse
+    User --> UC_Order
+    User --> UC_Pay
+    User --> UC_Cancel
+    User --> UC_Rating
+    User --> UC_HistUser
+
+    Worker --> UC_Login
+    Worker --> UC_ProfileWorker
+    Worker --> UC_ConfirmOrder
+    Worker --> UC_UpdateStatus
+    Worker --> UC_Payout
+    Worker --> UC_Income
+
+    Admin --> UC_Login
+    Admin --> UC_VerifyWorker
+    Admin --> UC_ManageWorker
+    Admin --> UC_ManageUser
+    Admin --> UC_BestAnalytics
+    Admin --> UC_ManageAdmin
+
+    UC_Order -.->|"<<include>>"| UC_Login
+    UC_Pay -.->|"<<extend>>"| UC_Order
+    UC_Rating -.->|"<<extend>>"| UC_HistUser
+    UC_Payout -.->|"<<include>>"| UC_UpdateStatus
+</div>
+
+<h2>2.2 Spesifikasi Skenario Use Case Kunci (Use Case Narratives)</h2>
+
+<h3>A. Use Case UC-08: Pemesanan Layanan ART (Booking Order)</h3>
+<table>
+    <tr><th style="width: 25%;">Nama Use Case</th><td>Pemesanan Layanan Jasa ART (Store Order)</td></tr>
+    <tr><th>Aktor</th><td>Majikan (User)</td></tr>
+    <tr><th>Deskripsi</th><td>Majikan memesan jasa mitra ART untuk jangka waktu harian atau mingguan.</td></tr>
+    <tr><th>Pre-condition</th><td>Majikan telah login ke sistem (<code>auth:web</code>) dan membuka halaman detail profil mitra ART yang bersangkutan.</td></tr>
+    <tr><th>Main Flow (Alur Utama)</th><td>
+        1. Majikan memilih tipe pekerjaan (Harian / Mingguan), jumlah durasi/qty, dan tanggal mulai bekerja.<br>
+        2. Majikan memasukkan atau memverifikasi alamat lokasi kerja dan nomor handphone.<br>
+        3. Majikan menekan tombol "Pesan Sekarang".<br>
+        4. Sistem memvalidasi kelengkapan data.<br>
+        5. Sistem membuat ID transaksi unik (<code>TRX-YYYYMMDD{workerId}{seq}</code>).<br>
+        6. Sistem menghitung rentang tanggal kerja (jika mingguan dikalikan 7 hari, jika harian 1 hari).<br>
+        7. Sistem melakukan iterasi (looping) penyimpanan baris data jadwal ke tabel <code>transactions</code> dengan status default: <code>konfirmasi: No</code>, <code>status_pembayaran: Belum Bayar</code>, <code>status_dana_terkirim: Belum</code>.<br>
+        8. Sistem mengarahkan majikan ke halaman rincian pembayaran.
+    </td></tr>
+    <tr><th>Alternative Flow</th><td>Jika data input tidak valid atau kuantitas kurang dari 1, sistem menampilkan pesan peringatan dan pemesanan tidak disimpan.</td></tr>
+    <tr><th>Post-condition</th><td>Data transaksi tercatat di database dengan status tagihan "Belum Bayar".</td></tr>
+</table>
+
+<h3>B. Use Case UC-09: Pembayaran Pesanan & Rekening Bersama (Escrow Payment)</h3>
+<table>
+    <tr><th style="width: 25%;">Nama Use Case</th><td>Konfirmasi Pembayaran Tagihan</td></tr>
+    <tr><th>Aktor</th><td>Majikan (User)</td></tr>
+    <tr><th>Deskripsi</th><td>Majikan melakukan pembayaran tagihan sesuai nominal total durasi kerja.</td></tr>
+    <tr><th>Pre-condition</th><td>Transaksi berada pada status <code>status_pembayaran: Belum Bayar</code>.</td></tr>
+    <tr><th>Main Flow</th><td>
+        1. Majikan melihat total rincian biaya (tarif satuan x kuantitas).<br>
+        2. Majikan mentransfer dana ke rekening bersama MyBantu dan menekan tombol konfirmasi bayar.<br>
+        3. Sistem memperbarui data transaksi: <code>status_pembayaran: Sudah Bayar</code> dan <code>konfirmasi: No</code>.<br>
+        4. Sistem memindahkan transaksi ke sub-tab "Menunggu Konfirmasi ART".
+    </td></tr>
+    <tr><th>Post-condition</th><td>Dana tertampung secara aman di sistem rekening bersama (escrow) MyBantu, menunggu persetujuan dari mitra ART.</td></tr>
+</table>
+
+<h3>C. Use Case UC-15 & UC-16: Konfirmasi Pesanan & Pelaksanaan Kerja</h3>
+<table>
+    <tr><th style="width: 25%;">Nama Use Case</th><td>Konfirmasi & Pembaruan Status Kerja</td></tr>
+    <tr><th>Aktor</th><td>Mitra ART (Worker)</td></tr>
+    <tr><th>Deskripsi</th><td>Mitra ART menyetujui jadwal kerja dan memperbarui progres pengerjaan jasa.</td></tr>
+    <tr><th>Main Flow</th><td>
+        1. Mitra ART membuka menu Transaksi pada dashboard worker.<br>
+        2. Pada pesanan baru (status "Sudah Bayar"), mitra memilih aksi <strong>Konfirmasi IYA</strong> (atau Tolak).<br>
+        3. Sistem memperbarui <code>konfirmasi: Yes</code> dan <code>status_bekerja: Menunggu</code>.<br>
+        4. Saat tanggal kerja dimulai, mitra menekan tombol <strong>Mulai Kerja</strong> (status menjadi <code>Proses</code>).<br>
+        5. Saat pekerjaan rumah tangga tuntas, mitra menekan tombol <strong>Tandai Selesai</strong> (status menjadi <code>status_selesai: Selesai</code>).
+    </td></tr>
+    <tr><th>Post-condition</th><td>Pesanan berstatus Selesai dan siap untuk proses pencairan dana.</td></tr>
+</table>
+
+<h3>D. Use Case UC-17: Pencairan Dana Mitra ART (Payout 85%)</h3>
+<table>
+    <tr><th style="width: 25%;">Nama Use Case</th><td>Pencairan Upah Mitra ART</td></tr>
+    <tr><th>Aktor</th><td>Mitra ART (Worker)</td></tr>
+    <tr><th>Deskripsi</th><td>Mitra menarik penghasilan dari pekerjaan yang telah diselesaikan.</td></tr>
+    <tr><th>Pre-condition</th><td>Transaksi berstatus <code>status_pembayaran: Sudah Bayar</code> dan <code>status_selesai: Selesai</code>.</td></tr>
+    <tr><th>Main Flow</th><td>
+        1. Mitra membuka modal/form pencairan dana.<br>
+        2. Mitra menginputkan nama bank tujuan, nomor rekening, dan nama pemilik rekening.<br>
+        3. Sistem menghitung total nilai transaksi bruto.<br>
+        4. Sistem otomatis memotong <strong>Fee Platform 15%</strong> (<code>fee_platform</code>).<br>
+        5. Sistem menghitung <strong>Nominal Cair 85%</strong> (<code>nominal_cair</code>).<br>
+        6. Sistem menyimpan histori bank, waktu cair, dan memperbarui status <code>status_dana_terkirim: Terkirim</code>.<br>
+        7. Sistem menampilkan konfirmasi pencairan berhasil kepada mitra ART.
+    </td></tr>
+    <tr><th>Post-condition</th><td>Saldo bersih telah diteruskan ke rekening mitra dan pendapatan tercatat di neraca sistem.</td></tr>
+</table>
+
+<h1>BAB III. ACTIVITY DIAGRAM (ALUR PROSES BISNIS)</h1>
+
+<p>Activity diagram menggambarkan alur kerja sistematis pada proses bisnis utama MyBantu dengan menggunakan partisi peran (swimlanes).</p>
+
+<h2>3.1 Activity Diagram 1: Alur Pemesanan & Pembayaran Escrow (Majikan)</h2>
+<div class="diagram-visual">
+[MAJIKAN (USER)]                                                [SISTEM MYBANTU]
+       |                                                               |
+  (( MULAI ))                                                          |
+       |                                                               |
+ [Pilih Mitra ART & Buka Detail]                                       |
+       |                                                               |
+ [Input Tipe, Qty, Tgl Mulai & Alamat]                                 |
+       |                                                               |
+ [Klik Tombol 'Pesan Sekarang'] -------------------------------------> |
+                                                                [Validasi Input & Autentikasi]
+                                                                       |
+                                                                < Valid? >
+                                                                 /      \
+                                                        (Tidak) /        \ (Ya)
+                                 [Tampilkan Pesan Error] <-----           [Generate ID Transaksi TRX-...]
+                                           |                                      |
+                                  [Koreksi Input]                         [Looping Jadwal Kerja ke DB]
+                                           |                                      |
+ [Buka Halaman Pembayaran] <----------------------------------------------+
+       |
+ [Transfer & Klik 'Saya Sudah Bayar'] -------------------------------> |
+                                                                [Update: status_pembayaran = 'Sudah Bayar']
+                                                                [Update: konfirmasi = 'No']
+                                                                [Simpan Dana di Rekening Bersama / Escrow]
+                                                                       |
+ (( SELESAI (Menunggu ART) )) <----------------------------------------+
+</div>
+
+<h3>Kode Sumber Notasi Mermaid (Activity Diagram 1):</h3>
+<div class="code-block">
+flowchart TD
+    subgraph Majikan ["Majikan (User)"]
+        A1(["Mulai"]) --> A2["Pilih Mitra ART & Lihat Profil Detail"]
+        A2 --> A3["Tentukan Tipe Layanan & Tanggal Mulai"]
+        A3 --> A4["Konfirmasi Form Pemesanan"]
+        A9["Buka Halaman Pembayaran"] --> A10["Lakukan Transfer & Klik Konfirmasi Bayar"]
+        A13(["Selesai (Menunggu Konfirmasi ART)"])
+    end
+
+    subgraph Sistem ["Sistem MyBantu"]
+        A4 --> A5{"Validasi Input & Autentikasi"}
+        A5 -- Tidak Valid --> A6["Tampilkan Pesan Error"]
+        A6 --> A3
+        A5 -- Valid --> A7["Generate ID Transaksi: TRX-YYYYMMDD..."]
+        A7 --> A8["Looping Generate Jadwal Tanggal Kerja ke Tabel Transaksi"]
+        A8 --> A9
+        A10 --> A11["Update Status Pembayaran = 'Sudah Bayar' & Konfirmasi = 'No'"]
+        A11 --> A12["Simpan Dana ke Rekening Bersama (Escrow)"]
+        A12 --> A13
+    end
+</div>
+
+<h2>3.2 Activity Diagram 2: Alur Konfirmasi, Pelaksanaan Kerja & Pencairan Upah (Mitra ART)</h2>
+<div class="diagram-visual">
+[MITRA ART (WORKER)]                                            [SISTEM MYBANTU]
+       |                                                               |
+  (( MULAI ))                                                          |
+       |                                                               |
+ [Buka Menu Transaksi Worker]                                          |
+       |                                                               |
+ < Keputusan Pesanan Masuk? >                                          |
+    /                   \                                              |
+(Tolak)                (Terima)                                        |
+   |                       |                                           |
+ [Klik 'Tolak']      [Klik 'Konfirmasi IYA'] ------------------------> [Set: konfirmasi='Yes', status_bekerja='Menunggu']
+   |                       |                                           |
+ [Pesanan Batal]     [Tiba Jadwal & Klik 'Mulai Kerja'] -------------> [Set: status_bekerja = 'Proses']
+                           |                                           |
+                     [Laksanakan Pekerjaan Rumah Tangga]               |
+                           |                                           |
+                     [Pekerjaan Rampung: Klik 'Tandai Selesai'] -----> [Set: status_selesai = 'Selesai']
+                           |                                           |
+                     [Buka Form Pencairan: Input Data Rekening Bank]   |
+                           |                                           |
+                     [Submit Permintaan Payout] ---------------------> [Hitung Nilai Bruto: Tarif x Qty]
+                                                                       [Potong Fee Platform MyBantu 15%]
+                                                                       [Hitung Nominal Cair Bersih 85%]
+                                                                       [Set: status_dana_terkirim = 'Terkirim']
+                                                                       [Catat Waktu Cair & Detail Rekening]
+                                                                               |
+ (( SELESAI (Upah Masuk Rekening) )) <-----------------------------------------+
+</div>
+
+<h3>Kode Sumber Notasi Mermaid (Activity Diagram 2):</h3>
+<div class="code-block">
+flowchart TD
+    subgraph Worker ["Mitra ART (Worker)"]
+        B1(["Mulai"]) --> B2["Buka Menu Transaksi"]
+        B2 --> B3{"Keputusan Pesanan?"}
+        B3 -- Tolak --> B4["Pilih Aksi 'Tolak Pesanan'"]
+        B3 -- Terima --> B5["Pilih Aksi 'Konfirmasi IYA'"]
+        B7["Tiba Tanggal Kerja: Klik 'Mulai Kerja'"] --> B8["Melaksanakan Tugas ART"]
+        B8 --> B9["Tugas Tuntas: Klik 'Tandai Selesai'"]
+        B11["Buka Menu Pencairan: Input No Rekening & Bank"] --> B12["Submit Permintaan Pencairan"]
+        B16(["Selesai (Upah Masuk Rekening)"])
+    end
+
+    subgraph Sistem ["Sistem MyBantu"]
+        B4 --> B4_Sys["Set konfirmasi='Rejected', status='Ditolak'"]
+        B5 --> B6["Set konfirmasi='Yes', status_bekerja='Menunggu'"]
+        B6 --> B7
+        B9 --> B10["Update status_selesai = 'Selesai'"]
+        B10 --> B11
+        B12 --> B13["Hitung Nilai Bruto: Potong Fee Platform 15%"]
+        B13 --> B14["Kalkulasi Nominal Bersih Mitra ART 85%"]
+        B14 --> B15["Update status_dana_terkirim = 'Terkirim' & Catat Transaksi Bank"]
+        B15 --> B16
+    end
+</div>
+
+<h2>3.3 Activity Diagram 3: Alur Pendaftaran & Verifikasi Mitra ART (Admin)</h2>
+<div class="code-block">
+flowchart TD
+    subgraph CalonWorker ["Calon Mitra ART"]
+        C1(["Mulai"]) --> C2["Akses Halaman Register Mitra ART"]
+        C2 --> C3["Isi Biodata, Upload Foto Profil & SKCK"]
+        C3 --> C4["Pilih Layanan (Harian/Mingguan) & Setujui Syarat"]
+        C4 --> C5["Submit Pendaftaran"]
+        C12(["Menunggu Hasil Verifikasi"])
+    end
+
+    subgraph Sistem ["Sistem MyBantu"]
+        C5 --> C6["Simpan Data Worker (status_data: 'belum terverifikasi')"]
+        C6 --> C7["Generate Record Awal di Tabel price_worker"]
+        C7 --> C8["Tampilkan Worker pada Antrean Verifikasi Admin"]
+        C10 --> C11{"Keputusan Admin?"}
+        C11 -- Setujui --> C11_A["Update status_data='terverifikasi' & status_worker='AKTIF'"]
+        C11 -- Tolak --> C11_B["Update status_data='ditolak'"]
+        C11_A --> C12
+        C11_B --> C12
+    end
+
+    subgraph Admin ["Administrator"]
+        C8 --> C9["Buka Portal Admin: Menu Verifikasi Data Worker"]
+        C9 --> C10["Pemeriksaan Kelayakan Dokumen (Foto & SKCK)"]
+    end
+</div>
+
+<h1>BAB IV. SEQUENCE DIAGRAM (INTERAKSI OBJEK MVC)</h1>
+
+<p>Sequence diagram menggambarkan pesan (message invocation) antar objek Boundary (View), Controller, Model, dan Database secara berurutan sesuai alur eksekusi aplikasi.</p>
+
+<h2>4.1 Sequence Diagram 1: Pemesanan Layanan ART (storeOrder)</h2>
+<p><strong>Operasi:</strong> <code>TransactionController@storeOrder</code></p>
+
+<div class="code-block">
+sequenceDiagram
+    autonumber
+    actor Majikan as Majikan (User)
+    participant View as WorkerDetailView
+    participant Ctrl as TransactionController
+    participant WModel as Worker (Model)
+    participant TModel as Transaction (Model)
+    database DB as Database MySQL
+
+    Majikan ->> View: Input (Qty, Tgl Mulai, Tipe Pekerjaan, Alamat, No HP)
+    View ->> Ctrl: POST /order/{workerId} (Request Data)
+    activate Ctrl
+
+    Ctrl ->> Ctrl: Validasi data input & Autentikasi Guard 'web'
+    Ctrl ->> WModel: findOrFail(workerId)
+    WModel ->> DB: SELECT * FROM workers WHERE id = workerId
+    DB -->> WModel: Data Worker Ditemukan
+    WModel -->> Ctrl: Objek $worker
+
+    Ctrl ->> Ctrl: Generate Format ID TRX (TRX-YYYYMMDD + workerId + seq)
+    Ctrl ->> Ctrl: Hitung Total Hari (Mingguan x7, Harian x1)
+
+    loop Sebanyak Total Hari Kerja
+        Ctrl ->> TModel: create([id_transaksi, tanggal_kerja, konfirmasi: 'No', status_pembayaran: 'Belum Bayar', ...])
+        TModel ->> DB: INSERT INTO transactions (...)
+    end
+
+    DB -->> TModel: Berhasil Disimpan
+    TModel -->> Ctrl: Selesai Looping Insert
+
+    Ctrl -->> View: Redirect ke route('transaksi.bayar.form', idTransaksi)
+    deactivate Ctrl
+    View -->> Majikan: Tampilkan Rincian Tagihan Pembayaran
+</div>
+
+<h2>4.2 Sequence Diagram 2: Konfirmasi Pembayaran Tagihan (prosesBayar)</h2>
+<p><strong>Operasi:</strong> <code>TransactionController@prosesBayar</code></p>
+
+<div class="code-block">
+sequenceDiagram
+    autonumber
+    actor Majikan as Majikan (User)
+    participant View as BayarView
+    participant Ctrl as TransactionController
+    participant TModel as Transaction (Model)
+    database DB as Database MySQL
+
+    Majikan ->> View: Klik Tombol "Saya Sudah Bayar"
+    View ->> Ctrl: POST /transaksi/bayar/{idTransaksi}
+    activate Ctrl
+
+    Ctrl ->> TModel: where('id_transaksi', idTransaksi)->where('user_id', Auth::id())
+    Ctrl ->> TModel: update(['status_pembayaran' => 'Sudah Bayar', 'konfirmasi' => 'No'])
+    TModel ->> DB: UPDATE transactions SET status_pembayaran='Sudah Bayar', konfirmasi='No' WHERE id_transaksi=...
+    DB -->> TModel: Berhasil Diperbarui
+    TModel -->> Ctrl: Sukses Update
+
+    Ctrl -->> View: Redirect route('transaksi', ['status' => 'menunggu_konfirmasi'])
+    deactivate Ctrl
+    View -->> Majikan: Notifikasi Sukses "Menunggu Konfirmasi Mitra ART"
+</div>
+
+<h2>4.3 Sequence Diagram 3: Konfirmasi & Status Pengerjaan oleh Mitra (updateStatus)</h2>
+<p><strong>Operasi:</strong> <code>WorkerDashboardController@updateStatus</code></p>
+
+<div class="code-block">
+sequenceDiagram
+    autonumber
+    actor Worker as Mitra ART (Worker)
+    participant View as WorkerDashboardView
+    participant Ctrl as WorkerDashboardController
+    participant TModel as Transaction (Model)
+    database DB as Database MySQL
+
+    Worker ->> View: Pilih Aksi ('konfirmasi_iya' / 'mulai_kerja' / 'selesai_kerja')
+    View ->> Ctrl: POST /worker/transaksi/{idTransaksi}/status (action)
+    activate Ctrl
+
+    Ctrl ->> TModel: Validasi kepemilikan pesanan (worker_id == Auth::id())
+    TModel ->> DB: SELECT COUNT(*) FROM transactions WHERE id_transaksi=... AND worker_id=...
+    DB -->> TModel: Valid
+
+    alt action == 'konfirmasi_iya'
+        Ctrl ->> TModel: update(['konfirmasi' => 'Yes', 'status_bekerja' => 'Menunggu'])
+        TModel ->> DB: UPDATE transactions SET konfirmasi='Yes', status_bekerja='Menunggu'
+    else action == 'mulai_kerja'
+        Ctrl ->> TModel: update(['status_bekerja' => 'Proses'])
+        TModel ->> DB: UPDATE transactions SET status_bekerja='Proses'
+    else action == 'selesai_kerja'
+        Ctrl ->> TModel: update(['status_selesai' => 'Selesai'])
+        TModel ->> DB: UPDATE transactions SET status_selesai='Selesai'
+    end
+
+    DB -->> TModel: Berhasil Diperbarui
+    TModel -->> Ctrl: Sukses
+    Ctrl -->> View: Redirect Back dengan Pesan Sukses
+    deactivate Ctrl
+    View -->> Worker: Tampilan Status Terkini
+</div>
+
+<h2>4.4 Sequence Diagram 4: Pencairan Dana & Fee Platform 15% (cairkanDana)</h2>
+<p><strong>Operasi:</strong> <code>WorkerDashboardController@cairkanDana</code></p>
+
+<div class="code-block">
+sequenceDiagram
+    autonumber
+    actor Worker as Mitra ART (Worker)
+    participant View as CairkanDanaModal
+    participant Ctrl as WorkerDashboardController
+    participant PModel as PriceWorker (Model)
+    participant TModel as Transaction (Model)
+    database DB as Database MySQL
+
+    Worker ->> View: Input (bank_tujuan, no_rekening, nama_rekening)
+    View ->> Ctrl: POST /worker/transaksi/{idTransaksi}/cairkan
+    activate Ctrl
+
+    Ctrl ->> TModel: Validasi (status_pembayaran='Sudah Bayar', status_selesai='Selesai')
+    TModel ->> DB: Query Transaksi
+    DB -->> TModel: Data Valid ($firstTrx)
+
+    Ctrl ->> PModel: Query Tarif Satuan Worker
+    PModel ->> DB: SELECT harga FROM price_worker WHERE worker_id=... AND tipe_pekerjaan=...
+    DB -->> PModel: Nilai Harga Satuan
+
+    Ctrl ->> Ctrl: Hitung Bruto = (hargaSatuan * jumlah_qty)
+    Ctrl ->> Ctrl: Hitung Fee Platform 15% = round(Bruto * 0.15)
+    Ctrl ->> Ctrl: Hitung Bersih 85% = Bruto - Fee Platform
+
+    Ctrl ->> TModel: update(['status_dana_terkirim' => 'Terkirim', 'fee_platform' => fee, 'nominal_cair' => net, ...])
+    TModel ->> DB: UPDATE transactions SET status_dana_terkirim='Terkirim', fee_platform=..., nominal_cair=...
+    DB -->> TModel: Berhasil Disimpan
+    TModel -->> Ctrl: Sukses Payout
+
+    Ctrl -->> View: Redirect Back dengan Rincian Transfer Sukses
+    deactivate Ctrl
+    View -->> Worker: Notifikasi Dana Bersih Diteruskan ke Rekening Bank
+</div>
+
+<h2>4.5 Sequence Diagram 5: Verifikasi Dokumen Mitra ART oleh Admin (updateVerification)</h2>
+<p><strong>Operasi:</strong> <code>AdminWorkerController@updateVerification</code></p>
+
+<div class="code-block">
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant View as AdminVerifyIndexView
+    participant Ctrl as AdminWorkerController
+    participant WModel as Worker (Model)
+    database DB as Database MySQL
+
+    Admin ->> View: Klik Tombol "Verifikasi" / "Tolak" pada berkas SKCK & Foto
+    View ->> Ctrl: POST /admin/workers/{id}/verify (status_data: 'terverifikasi'/'ditolak')
+    activate Ctrl
+
+    Ctrl ->> Ctrl: Validasi input (in: terverifikasi, belum terverifikasi, ditolak)
+    Ctrl ->> WModel: findOrFail(id)
+    WModel ->> DB: SELECT * FROM workers WHERE id = id
+    DB -->> WModel: Data Worker Ditemukan
+
+    Ctrl ->> WModel: update status_data = request->status_data
+    WModel ->> DB: UPDATE workers SET status_data = 'terverifikasi' WHERE id = id
+    DB -->> WModel: Sukses Diperbarui
+    WModel -->> Ctrl: Objek Worker Updated
+
+    Ctrl -->> View: Redirect Back dengan Flash Message Sukses
+    deactivate Ctrl
+    View -->> Admin: Status Mitra Berhasil Diverifikasi (Badge Hijau)
+</div>
+
+<h1>BAB V. STATE MACHINE & MATRIKS STATUS DATA</h1>
+
+<h2>5.1 Matriks Status Transaksi</h2>
+<p>Sistem informasi MyBantu mengelola daur hidup transaksi melalui perpaduan beberapa kolom status pada tabel <code>transactions</code>:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Tahapan Proses</th>
+            <th>status_pembayaran</th>
+            <th>konfirmasi</th>
+            <th>status_bekerja</th>
+            <th>status_selesai</th>
+            <th>status_dana_terkirim</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1. Pesanan Dibuat (Order Dibuat)</td>
+            <td><span class="badge">Belum Bayar</span></td>
+            <td>No</td>
+            <td>NULL</td>
+            <td>NULL</td>
+            <td>Belum</td>
+        </tr>
+        <tr>
+            <td>2. Pembayaran Majikan (Escrow)</td>
+            <td><span class="badge">Sudah Bayar</span></td>
+            <td>No</td>
+            <td>NULL</td>
+            <td>NULL</td>
+            <td>Belum</td>
+        </tr>
+        <tr>
+            <td>3. Pesanan Ditolak Mitra</td>
+            <td>Sudah Bayar</td>
+            <td><span class="badge">Rejected</span></td>
+            <td>Ditolak</td>
+            <td>NULL</td>
+            <td>Belum</td>
+        </tr>
+        <tr>
+            <td>4. Diterima (Menunggu Jadwal)</td>
+            <td>Sudah Bayar</td>
+            <td><span class="badge">Yes</span></td>
+            <td><span class="badge">Menunggu</span></td>
+            <td>NULL</td>
+            <td>Belum</td>
+        </tr>
+        <tr>
+            <td>5. Sedang Dikerjakan</td>
+            <td>Sudah Bayar</td>
+            <td>Yes</td>
+            <td><span class="badge">Proses</span></td>
+            <td>NULL</td>
+            <td>Belum</td>
+        </tr>
+        <tr>
+            <td>6. Pekerjaan Selesai (Siap Payout)</td>
+            <td>Sudah Bayar</td>
+            <td>Yes</td>
+            <td>Proses</td>
+            <td><span class="badge">Selesai</span></td>
+            <td>Belum</td>
+        </tr>
+        <tr>
+            <td>7. Upah Dicairkan (Payout Selesai)</td>
+            <td>Sudah Bayar</td>
+            <td>Yes</td>
+            <td>Proses</td>
+            <td>Selesai</td>
+            <td><span class="badge">Terkirim</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>5.2 Matriks Status Mitra ART (Worker)</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Kolom</th>
+            <th>Nilai Status</th>
+            <th>Keterangan Operasional</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="3"><code>status_data</code></td>
+            <td><strong>belum terverifikasi</strong></td>
+            <td>Mitra baru mendaftar, dokumen SKCK dan profil masih dalam antrean peninjauan oleh administrator.</td>
+        </tr>
+        <tr>
+            <td><strong>terverifikasi</strong></td>
+            <td>Dokumen telah disetujui admin, mitra sah menerima pesanan dari majikan.</td>
+        </tr>
+        <tr>
+            <td><strong>ditolak</strong></td>
+            <td>Dokumen dinilai tidak valid atau tidak memenuhi syarat kepolisian/keabsahan identitas.</td>
+        </tr>
+        <tr>
+            <td rowspan="2"><code>status_worker</code></td>
+            <td><strong>AKTIF</strong></td>
+            <td>Profil mitra aktif dan dapat muncul pada pencarian dan katalog produk.</td>
+        </tr>
+        <tr>
+            <td><strong>NONAKTIF</strong></td>
+            <td>Mitra dinonaktifkan sementara oleh admin sehingga tidak dapat menerima pesanan baru.</td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<div style="text-align: center; color: #64748b; font-size: 9pt; border-top: 1pt solid #cbd5e1; padding-top: 10pt;">
+    Dokumen Perancangan Sistem MyBantu &copy; 2026. Disusun otomatis dan disesuaikan secara presisi dengan arsitektur kode sumber Laravel.
+</div>
+
+</div>
+</body>
+</html>
