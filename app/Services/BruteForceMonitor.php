@@ -142,7 +142,7 @@ class BruteForceMonitor
             'created_at' => now(),
         ]);
 
-        Log::channel('security')->{$level}("Auth event: {$eventType}", [
+        $context = [
             'event_type' => $eventType,
             'endpoint' => $endpoint,
             'guard' => $guard,
@@ -151,6 +151,9 @@ class BruteForceMonitor
             'user_agent' => $userAgent,
             'reason' => $reason,
             'attempts_in_window' => $attemptsInWindow,
-        ]);
+        ];
+
+        Log::channel('security')->{$level}("Auth event: {$eventType}", $context);
+        Log::channel('security_json')->{$level}("Auth event: {$eventType}", $context);
     }
 }

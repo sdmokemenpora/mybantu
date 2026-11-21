@@ -143,6 +143,14 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'security_json' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/security-json.log'),
+            'level' => 'info',
+            'formatter' => \Monolog\Formatter\JsonFormatter::class,
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];
