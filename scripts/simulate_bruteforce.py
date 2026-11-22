@@ -35,7 +35,13 @@ def build_opener() -> urllib.request.OpenerDirector:
 
 
 def fetch_csrf(opener: urllib.request.OpenerDirector, login_url: str) -> str:
-    req = urllib.request.Request(login_url, headers={"User-Agent": "MyBantu-BruteForceSim/1.0"})
+    req = urllib.request.Request(
+        login_url,
+        headers={
+            "User-Agent": "MyBantu-BruteForceSim/1.0",
+            "ngrok-skip-browser-warning": "true",
+        },
+    )
     with opener.open(req, timeout=10) as resp:
         html = resp.read().decode("utf-8", errors="ignore")
     return extract_csrf_token(html)
@@ -66,6 +72,7 @@ def send_login(
             "User-Agent": "MyBantu-BruteForceSim/1.0",
             "Content-Type": "application/x-www-form-urlencoded",
             "Referer": login_url,
+            "ngrok-skip-browser-warning": "true",
         },
     )
     try:
